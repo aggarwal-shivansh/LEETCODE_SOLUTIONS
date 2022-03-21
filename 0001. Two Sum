@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+      
+        int n= nums.size();
+         vector<pair<int,int >> pos(n);
+        vector<int> sol;
+        for(int i=0;i<n;i++)
+        {
+            pos[i].second=i;
+             pos[i].first=nums[i];
+        }   
+        
+        sort(pos.begin(),pos.end());
+        int i=0,j=n-1;
+        while(i<j)
+        {
+            if(pos[i].first+pos[j].first==target)
+            {
+                sol.push_back(pos[i].second);
+                sol.push_back(pos[j].second);
+                break;
+            }
+            else if(pos[i].first+pos[j].first<target)
+            {
+                ++i;
+            }
+            else
+                --j;
+        }
+        return sol;
+    }
+};
