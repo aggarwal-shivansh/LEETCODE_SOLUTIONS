@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int last(string s, char ch, int start, int n)       //function to return the last position of ch
+    {
+        int pos = start;
+        for(int i=start;i<n;i++)
+        {
+            if(s[i]==ch)
+            {
+                pos = i;
+            }
+        }
+        return pos;             //RETURN THE LAST POSITION OF CHARACTER ch.
+    }
+    vector<int> partitionLabels(string s) 
+    {
+        vector<int> res;
+        int n = s.length();
+        int i=0;
+        while(i<n)
+        {
+            char ch = s[i];
+            int l = last(s,ch,i,n);
+            if(i==l)        //if last position is same as start position than just add 1.
+            {
+                res.push_back(1);
+                ++i;
+            }
+            else
+            {
+                int k =i+1;
+                while(k<=l)             //EXPANDING THE LAST GREEDILY
+                {
+                    int nl = last(s, s[k], k, n);
+                    if(nl>l)
+                    {
+                        l = nl;         //UPDATING THE LAST POSITION IF NEW LAST IS GREATER THAN PREVIOUS.
+                    }
+                    ++k;
+                }  
+                res.push_back(l-i+1);       //INSERTING THE FINAL DIVISION (LAST-START+1)
+                i = l+1;                    //START FROM CHARACTER AFTER THE CURRENT CHARACTER'S LAST POSITION.
+            }
+        }
+        return res;       
+    }
+};
